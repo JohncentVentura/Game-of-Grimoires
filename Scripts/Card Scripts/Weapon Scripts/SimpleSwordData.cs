@@ -1,8 +1,7 @@
 using UnityEngine;
 
-[System.Serializable]
-[CreateAssetMenu(fileName = "PlayerSimpleSword", menuName = "ScriptableObjects/PlayerCards/PlayerSimpleSword")]
-public class PlayerSimpleSword : WeaponData
+[CreateAssetMenu(fileName = "SimpleSwordData", menuName = "ScriptableObjects/WeaponCard/SimpleSwordData")]
+public class SimpleSwordData : WeaponData
 {
     public override void InitCardData()
     {

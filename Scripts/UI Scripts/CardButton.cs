@@ -20,7 +20,7 @@ public class CardButton : MonoBehaviour
     [HideInInspector] public TextMeshProUGUI cooldownText;
     [HideInInspector] public TextMeshProUGUI keyInputText;
 
-    public void InitCardButton(CardObject card)
+    public void InitCardButton(CardData card)
     {
         rectTransform = GetComponent<RectTransform>();
         outerBorderImage = rectTransform.Find("OuterBorderImage").GetComponent<Image>();
@@ -31,13 +31,13 @@ public class CardButton : MonoBehaviour
 
         foreach (KeyValuePair<Card.MANATYPES, string> manaType in GameManager.Instance.card.manaTypesDict)
         {
-            if (card.GetCardProp(CARDPROPS.ManaType).value == manaType.Value) manaImage.sprite = GameManager.Instance.manaTypeSprites[(int)manaType.Key];
+            if (card.GetProp(CARDPROPS.ManaType).value == manaType.Value) manaImage.sprite = GameManager.Instance.manaTypeSprites[(int)manaType.Key];
         }
 
         innerBorderImage = rectTransform.Find("InnerBorderImage").GetComponent<Image>();
         cardBGImage = innerBorderImage.GetComponent<RectTransform>().Find("CardBGImage").GetComponent<Image>();
         cardImage = innerBorderImage.GetComponent<RectTransform>().Find("CardImage").GetComponent<Image>();
-        cardImage.sprite = card.spriteRenderer.sprite;
+        cardImage.sprite = card.cardSprite;
 
         cooldownSlider = rectTransform.Find("CooldownSlider").GetComponent<Slider>();
         cooldownImage = cooldownSlider.GetComponent<RectTransform>().Find("CooldownImage").GetComponent<Image>();
@@ -46,11 +46,12 @@ public class CardButton : MonoBehaviour
         keyInputText = rectTransform.Find("KeyInputText").GetComponent<TextMeshProUGUI>();
     }
 
-    public void UpdateCardData(CardObject card)
+    public void UpdateCardData(CardData card)
     {
-        manaSlider.maxValue = card.GetCardStat(CARDSTATS.Mana).maxValue;
-        manaSlider.value = card.GetCardStat(CARDSTATS.Mana).value;
-        cooldownSlider.maxValue = card.GetCardStat(CARDSTATS.Cooldown).maxValue;
-        cooldownSlider.value = card.GetCardStat(CARDSTATS.Cooldown).value;
+        manaSlider.maxValue = card.GetStat(CARDSTATS.Mana).maxValue;
+        manaSlider.value = card.GetStat(CARDSTATS.Mana).value;
+        cooldownSlider.maxValue = card.GetStat(CARDSTATS.Cooldown).maxValue;
+        cooldownSlider.value = card.GetStat(CARDSTATS.Cooldown).value;
     }
+    
 }

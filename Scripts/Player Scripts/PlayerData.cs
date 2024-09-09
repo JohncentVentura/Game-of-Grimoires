@@ -16,20 +16,26 @@ public class SerializablePlayerData
     }
     public AnimState animState;
 
-    [Header("Card Objects")]
-    public Bird bird;
-    public BlazeBall blazeBall;
-    public BeginnersBow beginnersBow;
-    public SimpleSword simpleSword;
+    [Header("Serializable Card Data")]
+    public SerializableCreatureData birdData;
+    public SerializableSpellData blazeBallData;
+    public SerializableWeaponData beginnersBowData;
+    public SerializableWeaponData simpleSwordData;
 
     [Header("Deck")]
     public readonly int deckSize = 4;
-    public List<CardObject> deck1;
-    public List<CardObject> deck2;
-    public List<CardObject> activeDeck;
+    public List<CardData> activeDeck;
     public List<CreatureObject> activeCreatureObjects;
     public List<SpellObject> activeSpellObjects;
     public WeaponObject activeWeaponObject;
+
+    public SerializablePlayerData()
+    {
+        birdData = new SerializableCreatureData();
+        blazeBallData = new SerializableSpellData();
+        beginnersBowData = new SerializableWeaponData();
+        simpleSwordData = new SerializableWeaponData();
+    }
 }
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/PlayerData")]
@@ -48,26 +54,20 @@ public class PlayerData : ScriptableObject
     public AnimState animState;
 
     [Header("Card Data")]
-    public PlayerBird playerBird;
-    public PlayerBlazeBall playerBlazeBall;
-    public PlayerBeginnersBow playerBeginnersBow;
-    public PlayerSimpleSword playerSimpleSword;
+    public CreatureData birdData;
+    public SpellData blazeBallData;
+    public WeaponData beginnersBowData;
+    public WeaponData simpleSwordData;
 
-    [Header("Card Objects")]
-    public Bird bird;
-    public BlazeBall blazeBall;
-    public BeginnersBow beginnersBow;
-    public SimpleSword simpleSword;
-    
     [Header("Deck")]
     public readonly int deckSize = 4;
-    public List<CardObject> activeDeck;
-    public List<CardObject> activeCreatureObjects;
-    public List<CardObject> activeSpellObjects;
-    public CardObject activeWeaponObject;
+    public List<CardData> activeDeck;
+    public List<CreatureObject> activeCreatureObjects;
+    public List<SpellObject> activeSpellObjects;
+    public WeaponObject activeWeaponObject;
 
     public void InitPlayerData()
-    {   
+    {
         //Stats & State
         canPlayerInput = true;
         worldPosition = new Vector2(0, 0);
@@ -81,27 +81,27 @@ public class PlayerData : ScriptableObject
         animState = AnimState.IDLE;
 
         //Card Data
-        //From SO, changes in SO & GO is the same
-        playerBird.InitCardData();
-        //New SO, changes in SO & GO is different
-        PlayerBird newPlayerBird = (PlayerBird)CreateInstance("PlayerBird");
-        newPlayerBird.InitCardData();
-    
-        //Card Objects
-        bird.InitCardObject((PlayerBird)CreateInstance("PlayerBird"));
-        blazeBall.InitCardObject((PlayerBlazeBall)CreateInstance("PlayerBlazeBall"));
-        beginnersBow.InitCardObject((PlayerBeginnersBow)CreateInstance("PlayerBeginnersBow"));
-        simpleSword.InitCardObject((PlayerSimpleSword)CreateInstance("PlayerSimpleSword"));
-    
+        birdData.InitCardData();
+        blazeBallData.InitCardData();
+        beginnersBowData.InitCardData();
+        simpleSwordData.InitCardData();
+
         //Deck
-        activeDeck = new List<CardObject>();
-        activeDeck.Insert(0, bird);
-        activeDeck.Insert(1, blazeBall);
-        activeDeck.Insert(2, beginnersBow);
-        activeDeck.Insert(3, simpleSword);
-        activeCreatureObjects = new List<CardObject>();
-        activeSpellObjects = new List<CardObject>();
+        activeDeck = new List<CardData>();
+        activeDeck.Insert(0, birdData);
+        activeDeck.Insert(1, blazeBallData);
+        activeDeck.Insert(2, beginnersBowData);
+        activeDeck.Insert(3, simpleSwordData);
+        activeCreatureObjects = new List<CreatureObject>();
+        activeSpellObjects = new List<SpellObject>();
         activeWeaponObject = null;
+
+        //From SO, changes in SO & GO is the same
+        //birdData.InitCardData();
+
+        //New SO, changes in SO & GO is different
+        //PlayerBird newPlayerBird = (PlayerBird)CreateInstance("PlayerBird");
+        //newPlayerBird.InitCardData();
     }
 
     public void AddStat(PLAYERSTATS stat, float maxValue)

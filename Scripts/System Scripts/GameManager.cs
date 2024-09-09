@@ -54,12 +54,9 @@ public class GameManager : MonoBehaviour, IDataPersistence
     void OnApplicationQuit()
     {
         PlayerManager.Instance.playerData.canPlayerInput = false;
-        /*
         PlayerManager.Instance.playerData.activeCreatureObjects = null;
         PlayerManager.Instance.playerData.activeSpellObjects = null;
-        PlayerManager.Instance.playerData.activeWeaponCard = null;
         PlayerManager.Instance.playerData.activeWeaponObject = null;
-        */
 
         if (!DataManager.Instance.useWithoutGameData)
         {

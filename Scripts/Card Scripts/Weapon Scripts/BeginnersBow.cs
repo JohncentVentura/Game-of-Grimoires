@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BeginnersBow : WeaponObject
 {
-    private void Update() => StateMachine(false);
-    private void FixedUpdate() => StateMachine(true);
+    void Update() => StateMachine(false);
+    void FixedUpdate() => StateMachine(true);
 
-    #region ANIMSTATES
+    #region StateMachine
     public void StateMachine(bool isUsingPhysics)
     {
         switch (animState)
@@ -27,7 +27,7 @@ public class BeginnersBow : WeaponObject
         transform.rotation = Quaternion.identity; //For Bow-type & Staff-type Weapons
     }
 
-    public virtual void IdleState(bool isUsingPhysics)
+    public void IdleState(bool isUsingPhysics)
     {
         if (isUsingPhysics)
         {
@@ -39,7 +39,7 @@ public class BeginnersBow : WeaponObject
         }
     }
 
-    public virtual void AttackState(bool isUsingPhysics)
+    public void AttackState(bool isUsingPhysics)
     {
         if (isUsingPhysics)
         {

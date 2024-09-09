@@ -1,8 +1,7 @@
 using UnityEngine;
 
-[System.Serializable]
-[CreateAssetMenu(fileName = "PlayerBlazeBall", menuName = "ScriptableObjects/PlayerCards/PlayerBlazeBall")]
-public class PlayerBlazeBall : SpellData
+[CreateAssetMenu(fileName = "BlazeBallData", menuName = "ScriptableObjects/SpellCard/BlazeBallData")]
+public class BlazeBallData : SpellData
 {
     public override void InitCardData()
     {

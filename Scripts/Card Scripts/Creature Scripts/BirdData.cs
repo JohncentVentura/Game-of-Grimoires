@@ -1,8 +1,7 @@
 using UnityEngine;
 
-[System.Serializable]
-[CreateAssetMenu(fileName = "PlayerBird", menuName = "ScriptableObjects/PlayerCards/PlayerBird")]
-public class PlayerBird : CreatureData
+[CreateAssetMenu(fileName = "BirdData", menuName = "ScriptableObjects/CreatureCard/BirdData")]
+public class BirdData : CreatureData
 {
     public override void InitCardData()
     {
@@ -20,5 +19,12 @@ public class PlayerBird : CreatureData
         AddStat(CREATURESTATS.AttackRange, 1f);
         AddStat(CREATURESTATS.AttackSpeed, 1f);
         AddStat(CREATURESTATS.MovementSpeed, 50f);
+    }
+
+    public void Summon(){
+        /* Testing so we won't put prefabs to script, instead just use CardManager
+        Instantiate(CardManager.Instance.bird)
+        bird.creatureData = CreateInstance("BirdData");
+        */
     }
 }
