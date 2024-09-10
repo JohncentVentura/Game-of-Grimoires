@@ -40,14 +40,10 @@ MonoBehaviour:
     value: 60
     regeneration: 0
   animState: 0
-  birdData: {fileID: 11400000, guid: f3c88a98a45db7b409adcbc567e81d18, type: 2}
-  blazeBallData: {fileID: 11400000, guid: 960ee155c9570a540b6b62f9d8613bd2, type: 2}
-  beginnersBowData: {fileID: 11400000, guid: 30f9f8cb56e76c34da30ca7426fc3aeb, type: 2}
-  simpleSwordData: {fileID: 11400000, guid: 636b62259571d394f92bbbb6f0cf9330, type: 2}
-  bird: {fileID: 967268872688366060, guid: 1978ce870c2c74149b8e62ef03819528, type: 3}
-  blazeBall: {fileID: 4739746387971353988, guid: 90369df2706c7df49876ef4f8f9ff6fc, type: 3}
-  beginnersBow: {fileID: 7886024652371797172, guid: a03f2c1d27140d94fa3f026aaf7db9b4, type: 3}
-  simpleSword: {fileID: 7218439807529590202, guid: fcd837996f453a54a88e67fb8fde9f57, type: 3}
+  birdData: {fileID: 11400000, guid: 28d869b74de8f374697d96278f873ef0, type: 2}
+  blazeBallData: {fileID: 11400000, guid: 1c3016ade5d142445aabeedf6db85736, type: 2}
+  beginnersBowData: {fileID: 11400000, guid: e60334f7a3a5a014c8ddb96d45e0af4f, type: 2}
+  simpleSwordData: {fileID: 11400000, guid: f1c3f6953ea0b2642a8d9a0d7bc8d85f, type: 2}
   activeDeck: []
   activeCreatureObjects: []
   activeSpellObjects: []

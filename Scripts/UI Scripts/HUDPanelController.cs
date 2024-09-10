@@ -33,15 +33,15 @@ public class HUDPanelController : MonoBehaviour
             cardButtons[i].UpdateCardData(playerData.activeDeck[i]);
 
             //CardButtons ManaSlider value
-            cardButtons[i].manaSlider.value = playerData.activeDeck[i].GetStat(CARDSTATS.Mana).value;
+            cardButtons[i].manaSlider.value = playerData.activeDeck[i].GetStat(ECardStats.Mana).value;
 
             //CardButtons CooldownSlider value
-            cardButtons[i].cooldownSlider.value = playerData.activeDeck[i].GetStat(CARDSTATS.Cooldown).value;
+            cardButtons[i].cooldownSlider.value = playerData.activeDeck[i].GetStat(ECardStats.Cooldown).value;
 
             //CardButtons CooldownText
-            if (playerData.activeDeck[i].GetStat(CARDSTATS.Cooldown).value > 0)
+            if (playerData.activeDeck[i].GetStat(ECardStats.Cooldown).value > 0)
             {
-                cardButtons[i].cooldownText.text = "" + playerData.activeDeck[i].GetStat(CARDSTATS.Cooldown).value.ToString("F1"); //F1 means 1 decimal is shown
+                cardButtons[i].cooldownText.text = "" + playerData.activeDeck[i].GetStat(ECardStats.Cooldown).value.ToString("F1"); //F1 means 1 decimal is shown
             }
             else
             {
@@ -50,7 +50,7 @@ public class HUDPanelController : MonoBehaviour
 
             
             //CardButtons Transparency
-            if (playerData.activeDeck[i].GetStat(CARDSTATS.Mana).value < playerData.activeDeck[i].GetStat(CARDSTATS.Mana).maxValue || playerData.activeDeck[i].GetStat(CARDSTATS.Cooldown).value > 0)
+            if (playerData.activeDeck[i].GetStat(ECardStats.Mana).value < playerData.activeDeck[i].GetStat(ECardStats.Mana).maxValue || playerData.activeDeck[i].GetStat(ECardStats.Cooldown).value > 0)
             {
                 cardButtons[i].outerBorderImage.color = new Color(cardButtons[i].outerBorderImage.color.r, cardButtons[i].outerBorderImage.color.g, cardButtons[i].outerBorderImage.color.b, 0.25f);
                 cardButtons[i].manaBGImage.color = new Color(cardButtons[i].manaBGImage.color.r, cardButtons[i].manaBGImage.color.g, cardButtons[i].manaBGImage.color.b, 0.25f);
@@ -59,7 +59,7 @@ public class HUDPanelController : MonoBehaviour
                 cardButtons[i].cardBGImage.color = new Color(cardButtons[i].cardBGImage.color.r, cardButtons[i].cardBGImage.color.g, cardButtons[i].cardBGImage.color.b, 0.25f);
                 cardButtons[i].cardImage.color = new Color(cardButtons[i].cardImage.color.r, cardButtons[i].cardImage.color.g, cardButtons[i].cardImage.color.b, 0.25f);
             }
-            else if (playerData.activeDeck[i].GetStat(CARDSTATS.Mana).value >= playerData.activeDeck[i].GetStat(CARDSTATS.Mana).maxValue && playerData.activeDeck[i].GetStat(CARDSTATS.Cooldown).value <= 0)
+            else if (playerData.activeDeck[i].GetStat(ECardStats.Mana).value >= playerData.activeDeck[i].GetStat(ECardStats.Mana).maxValue && playerData.activeDeck[i].GetStat(ECardStats.Cooldown).value <= 0)
             {
                 cardButtons[i].outerBorderImage.color = new Color(cardButtons[i].outerBorderImage.color.r, cardButtons[i].outerBorderImage.color.g, cardButtons[i].outerBorderImage.color.b, 1f);
                 cardButtons[i].manaBGImage.color = new Color(cardButtons[i].manaBGImage.color.r, cardButtons[i].manaBGImage.color.g, cardButtons[i].manaBGImage.color.b, 1f);

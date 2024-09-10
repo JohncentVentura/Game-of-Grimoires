@@ -6,18 +6,23 @@ public class BeginnersBowData : WeaponData
     public override void InitCardData()
     {
         base.InitCardData();
-        AddProp(CARDPROPS.CardName, "Beginners Bow");
-        AddProp(CARDPROPS.ManaType, GameManager.Instance.card.manaTypesDict[Card.MANATYPES.EARTH]);
-        AddProp(CARDPROPS.SubType, GameManager.Instance.card.weaponTypeDict[Card.WEAPONTYPES.BOW]);
+        AddProp(ECardProps.CardName, "Beginners Bow");
+        AddProp(ECardProps.ManaType, ObjectManager.Instance.manaTypes[ObjectManager.EManaTypes.Earth]);
+        AddProp(ECardProps.SubType, ObjectManager.Instance.weaponTypes[ObjectManager.EWeaponTypes.Bow]);
         
-        AddStat(CARDSTATS.Mana, 4);
-        AddStat(CARDSTATS.Cooldown, 4);
-        AddStat(CARDSTATS.Duration, 14);
+        AddStat(ECardStats.Mana, 4);
+        AddStat(ECardStats.Cooldown, 4);
+        AddStat(ECardStats.Duration, 14);
 
-        AddStat(WEAPONSTATS.HitPoints, 0f);
-        AddStat(WEAPONSTATS.AttackDamage, 4f);
-        AddStat(WEAPONSTATS.AttackRange, 1.2f);
-        AddStat(WEAPONSTATS.AttackSpeed, 2f);
-        AddStat(WEAPONSTATS.MovementSpeed, 5f);
+        AddStat(EWeaponStats.HitPoints, 0f);
+        AddStat(EWeaponStats.AttackDamage, 4f);
+        AddStat(EWeaponStats.AttackRange, 1.2f);
+        AddStat(EWeaponStats.AttackSpeed, 2f);
+        AddStat(EWeaponStats.MovementSpeed, 5f);
+    }
+
+    public override CardObject GetCardObject()
+    {
+        return ObjectManager.Instance.beginnersBow;
     }
 }

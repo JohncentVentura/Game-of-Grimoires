@@ -9,7 +9,7 @@ using UnityEngine;
 [Serializable]
 public class SerializableCardData
 {
-    public List<Property> cardProps;
+    public List<Prop> cardProps;
     public List<Stat> cardStats;
 }
 
@@ -20,7 +20,7 @@ public class SerializableCreatureData : SerializableCardData
 
     public SerializableCreatureData()
     {
-        cardProps = new List<Property>();
+        cardProps = new List<Prop>();
         cardStats = new List<Stat>();
         creatureStats = new List<Stat>();
     }
@@ -33,7 +33,7 @@ public class SerializableSpellData : SerializableCardData
 
     public SerializableSpellData()
     {
-        cardProps = new List<Property>();
+        cardProps = new List<Prop>();
         cardStats = new List<Stat>();
         spellStats = new List<Stat>();
     }
@@ -46,7 +46,7 @@ public class SerializableWeaponData : SerializableCardData
 
     public SerializableWeaponData()
     {
-        cardProps = new List<Property>();
+        cardProps = new List<Prop>();
         cardStats = new List<Stat>();
         weaponStats = new List<Stat>();
     }
@@ -56,31 +56,34 @@ public class SerializableWeaponData : SerializableCardData
 public class CardData : ScriptableObject
 {
     public Sprite cardSprite;
-    public List<Property> cardProps;
+    public List<Prop> cardProps;
     public List<Stat> cardStats;
 
-    public void AddProp(CARDPROPS prop, string propName)
+    public void AddProp(ECardProps prop, string propName)
     {
-        cardProps.Insert((int)prop, new Property(propName));
+        cardProps.Insert((int)prop, new Prop(propName));
         GetProp(prop).name = prop.ToString(); //Renames element name in Unity Inspector
     }
 
-    public void AddStat(CARDSTATS stat, float maxValue)
+    public void AddStat(ECardStats stat, float maxValue)
     {
         cardStats.Insert((int)stat, new Stat(maxValue));
         GetStat(stat).name = stat.ToString(); //Renames element name in Unity Inspector
     }
 
-    public Property GetProp(CARDPROPS prop) => cardProps[(int)prop];
-    public Stat GetStat(CARDSTATS stat) => cardStats[(int)stat];
+    public Prop GetProp(ECardProps prop) => cardProps[(int)prop];
+    public Stat GetStat(ECardStats stat) => cardStats[(int)stat];
 
     public virtual void InitCardData() { } //Override in CreatureData, SpellData, & WeaponData
-    public virtual void AddStat(CREATURESTATS stat, float maxValue) { } //Override in CreatureData
-    public virtual void AddStat(SPELLSTATS stat, float maxValue) { } //Override in SpellData
-    public virtual void AddStat(WEAPONSTATS stat, float maxValue) { } //Override in WeaponData
-    public virtual Stat GetStat(CREATURESTATS stat) => null; //Override in CreatureData
-    public virtual Stat GetStat(SPELLSTATS stat) => null; //Override in SpellData
-    public virtual Stat GetStat(WEAPONSTATS stat) => null; //Override in WeaponData
+    public virtual void AddStat(ECreatureStats stat, float maxValue) { } //Override in CreatureData
+    public virtual void AddStat(ESpellStats stat, float maxValue) { } //Override in SpellData
+    public virtual void AddStat(EWeaponStats stat, float maxValue) { } //Override in WeaponData
+    public virtual Stat GetStat(ECreatureStats stat) => null; //Override in CreatureData
+    public virtual Stat GetStat(ESpellStats stat) => null; //Override in SpellData
+    public virtual Stat GetStat(EWeaponStats stat) => null; //Override in WeaponData
+
+    public virtual CardObject GetCardObject() => null;
+    public virtual CardData GetNewCardData() => null;
 }
 
 public class CreatureData : CardData
@@ -89,19 +92,25 @@ public class CreatureData : CardData
 
     public override void InitCardData()
     {
-        cardProps = new List<Property>();
-        AddProp(CARDPROPS.MainType, GameManager.Instance.card.cardCategoryDict[Card.CARDCATEGORIES.CREATURE]);
+        cardProps = new List<Prop>();
+        AddProp(ECardProps.MainType, ObjectManager.Instance.mainTypes[ObjectManager.EMainTypes.Creature]);
         cardStats = new List<Stat>();
         creatureStats = new List<Stat>();
     }
 
-    public override void AddStat(CREATURESTATS stat, float maxValue)
+    public override void AddStat(ECreatureStats stat, float maxValue)
     {
         creatureStats.Insert((int)stat, new Stat(maxValue));
         GetStat(stat).name = stat.ToString(); //Renames element name in Unity Inspector
     }
 
-    public override Stat GetStat(CREATURESTATS stat) => creatureStats[(int)stat];
+    public override Stat GetStat(ECreatureStats stat) => creatureStats[(int)stat];
+
+    public override CardData GetNewCardData()
+    {   
+        CreatureData newCreatureData = Instantiate(this);
+        return newCreatureData;
+    }
 }
 
 public class SpellData : CardData
@@ -110,19 +119,25 @@ public class SpellData : CardData
 
     public override void InitCardData()
     {
-        cardProps = new List<Property>();
-        AddProp(CARDPROPS.MainType, GameManager.Instance.card.cardCategoryDict[Card.CARDCATEGORIES.SPELL]);
+        cardProps = new List<Prop>();
+        AddProp(ECardProps.MainType, ObjectManager.Instance.mainTypes[ObjectManager.EMainTypes.Spell]);
         cardStats = new List<Stat>();
         spellStats = new List<Stat>();
     }
 
-    public override void AddStat(SPELLSTATS stat, float maxValue)
+    public override void AddStat(ESpellStats stat, float maxValue)
     {
         spellStats.Insert((int)stat, new Stat(maxValue));
         GetStat(stat).name = stat.ToString(); //Renames element name in Unity Inspector
     }
 
-    public override Stat GetStat(SPELLSTATS stat) => spellStats[(int)stat];
+    public override Stat GetStat(ESpellStats stat) => spellStats[(int)stat];
+
+    public override CardData GetNewCardData()
+    {   
+        SpellData newSpellData = Instantiate(this);
+        return newSpellData;
+    }
 }
 
 public class WeaponData : CardData
@@ -131,17 +146,23 @@ public class WeaponData : CardData
 
     public override void InitCardData()
     {
-        cardProps = new List<Property>();
-        AddProp(CARDPROPS.MainType, GameManager.Instance.card.cardCategoryDict[Card.CARDCATEGORIES.WEAPON]);
+        cardProps = new List<Prop>();
+        AddProp(ECardProps.MainType, ObjectManager.Instance.mainTypes[ObjectManager.EMainTypes.Weapon]);
         cardStats = new List<Stat>();
         weaponStats = new List<Stat>();
     }
 
-    public override void AddStat(WEAPONSTATS stat, float maxValue)
+    public override void AddStat(EWeaponStats stat, float maxValue)
     {
         weaponStats.Insert((int)stat, new Stat(maxValue));
         GetStat(stat).name = stat.ToString(); //Renames element name in Unity Inspector
     }
 
-    public override Stat GetStat(WEAPONSTATS stat) => weaponStats[(int)stat];
+    public override Stat GetStat(EWeaponStats stat) => weaponStats[(int)stat];
+
+    public override CardData GetNewCardData()
+    {   
+        WeaponData newWeaponData = Instantiate(this);
+        return newWeaponData;
+    }
 }

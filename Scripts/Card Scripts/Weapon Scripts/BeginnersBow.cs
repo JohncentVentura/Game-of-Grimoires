@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeginnersBow : WeaponObject
+public class BeginnersBow : Weapon
 {
     void Update() => StateMachine(false);
     void FixedUpdate() => StateMachine(true);
@@ -12,10 +12,10 @@ public class BeginnersBow : WeaponObject
     {
         switch (animState)
         {
-            case ANIMSTATES.Idle:
+            case EAnimStates.Idle:
                 IdleState(isUsingPhysics);
                 break;
-            case ANIMSTATES.Attack:
+            case EAnimStates.Attack:
                 AttackState(isUsingPhysics);
                 break;
         }
@@ -23,7 +23,7 @@ public class BeginnersBow : WeaponObject
 
     public void AnimEventResetState() //Called as an event in animation
     {
-        animState = ANIMSTATES.Idle;
+        animState = EAnimStates.Idle;
         transform.rotation = Quaternion.identity; //For Bow-type & Staff-type Weapons
     }
 

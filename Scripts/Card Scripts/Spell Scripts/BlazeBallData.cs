@@ -6,12 +6,17 @@ public class BlazeBallData : SpellData
     public override void InitCardData()
     {
         base.InitCardData();
-        AddProp(CARDPROPS.CardName, "Blaze Ball");
-        AddProp(CARDPROPS.ManaType, GameManager.Instance.card.manaTypesDict[Card.MANATYPES.FIRE]);
-        AddProp(CARDPROPS.SubType, "Damage");
+        AddProp(ECardProps.CardName, "Blaze Ball");
+        AddProp(ECardProps.ManaType, ObjectManager.Instance.manaTypes[ObjectManager.EManaTypes.Fire]);
+        AddProp(ECardProps.SubType, "Damage");
 
-        AddStat(CARDSTATS.Mana, 1);
-        AddStat(CARDSTATS.Cooldown, 10);
-        AddStat(CARDSTATS.Duration, 6);
+        AddStat(ECardStats.Mana, 1);
+        AddStat(ECardStats.Cooldown, 10);
+        AddStat(ECardStats.Duration, 6);
+    }
+
+    public override CardObject GetCardObject()
+    {
+        return ObjectManager.Instance.blazeBall;
     }
 }

@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         playerData = playerManager.playerData;
 
         animator = GetComponent<Animator>();
-        animator.SetFloat("Blend", playerData.GetStat(PLAYERSTATS.PlayerDirection).value);
+        animator.SetFloat("Blend", playerData.GetStat(EPlayerStats.PlayerDirection).value);
         rb = GetComponent<Rigidbody2D>();
         centerPosition = transform.GetChild(0);
         frontHand = centerPosition.transform.GetChild(0);
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         if (Input.GetButtonDown(GameManager.Instance.settingsData.attackInputKey) && playerData.canPlayerInput)
         {
             playerMoveInput = Vector2.zero;
-            //PlayerAttack();
+            PlayerAttack();
         }
         else if ((Input.GetButtonDown(GameManager.Instance.settingsData.cardInputKeys[0]) 
         || Input.GetButtonDown(GameManager.Instance.settingsData.cardInputKeys[1])
@@ -71,17 +71,17 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
                 if (Input.GetButtonDown(GameManager.Instance.settingsData.cardInputKeys[i]))
                 {
                     playerMoveInput = Vector2.zero;
-                    //PlayCard(i);
+                    PlayCard(i);
                 }
             }
         }
         else if (playerMoveInput != Vector2.zero && playerData.canPlayerInput)
         {
-            playerData.animState = PlayerData.AnimState.MOVE;
+            playerData.animState = PlayerData.EAnimState.Move;
         }
         else if (playerMoveInput == Vector2.zero && playerData.canPlayerInput)
         {
-            playerData.animState = PlayerData.AnimState.IDLE;
+            playerData.animState = PlayerData.EAnimState.Idle;
         }
 
         StateMachine(false);
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
     private void LateUpdate()
     {
         //Some playerController properties are being animated, we can only override those properties in LateUpdate()
-        if (playerData.animState == PlayerData.AnimState.BOW_ATK || playerData.animState == PlayerData.AnimState.STAFF_ATK)
+        if (playerData.animState == PlayerData.EAnimState.BowAttack || playerData.animState == PlayerData.EAnimState.StaffAttack)
         {
             //Follow Mouse Cursor
             float maxDistance = 0.15f;
@@ -116,28 +116,28 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
     {
         //playerData.canPlayerInput = false;
 
-        /*
-        if (playerData.activeDeck[i].GetStat(CARDSTATS.Mana).value >= playerData.activeDeck[i].GetStat(CARDSTATS.Mana).maxValue
-            && playerData.activeDeck[i].GetStat(CARDSTATS.Cooldown).value <= 0)
+        if (playerData.activeDeck[i].GetStat(ECardStats.Mana).value >= playerData.activeDeck[i].GetStat(ECardStats.Mana).maxValue
+            && playerData.activeDeck[i].GetStat(ECardStats.Cooldown).value <= 0)
         {
-            if (playerData.activeDeck[i].GetProp(CARDPROPS.MainType).value == GameManager.Instance.card.cardCategoryDict[Card.CARDCATEGORIES.CREATURE])
+            if (playerData.activeDeck[i].GetProp(ECardProps.MainType).value == ObjectManager.Instance.mainTypes[ObjectManager.EMainTypes.Creature])
             {       
-                
-                CardObject creatureObject = Instantiate(playerData.activeDeck[i]);
+                Creature creatureObject = (Creature)Instantiate(playerData.activeDeck[i].GetCardObject());
+                creatureObject.creatureData = (CreatureData)playerData.activeDeck[i].GetNewCardData();
                 creatureObject.transform.parent = transform.parent.Find("Allies");
                 creatureObject.transform.position = centerPosition.position;
                 playerData.activeCreatureObjects.Add(creatureObject);
                 //playerData.activeDeck[i].UseCard();
             }
-            else if (playerData.activeDeck[i].GetProp(CARDPROPS.MainType).value == GameManager.Instance.card.cardCategoryDict[Card.CARDCATEGORIES.SPELL])
+            else if (playerData.activeDeck[i].GetProp(ECardProps.MainType).value == ObjectManager.Instance.mainTypes[ObjectManager.EMainTypes.Spell])
             {
-                CardObject spellObject = Instantiate(playerData.activeDeck[i]);
+                Spell spellObject = (Spell)Instantiate(playerData.activeDeck[i].GetCardObject());
+                spellObject.spellData = (SpellData)playerData.activeDeck[i].GetNewCardData();
                 spellObject.transform.parent = transform.parent.Find("Spells");
                 spellObject.transform.position = frontHand.transform.position;
                 playerData.activeSpellObjects.Add(spellObject);
                 //playerData.activeDeck[i].UseCard();
             }
-            else if (playerData.activeDeck[i].GetProp(CARDPROPS.MainType).value == GameManager.Instance.card.cardCategoryDict[Card.CARDCATEGORIES.WEAPON])
+            else if (playerData.activeDeck[i].GetProp(ECardProps.MainType).value == ObjectManager.Instance.mainTypes[ObjectManager.EMainTypes.Weapon])
             {
                 if (playerData.activeWeaponObject)
                 {
@@ -145,27 +145,27 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
                     playerData.activeWeaponObject = null;
                 }
 
-                playerData.activeWeaponObject = Instantiate(playerData.activeDeck[i]);
+                playerData.activeWeaponObject = (Weapon)Instantiate(playerData.activeDeck[i].GetCardObject());
+                playerData.activeWeaponObject.weaponData = (WeaponData)playerData.activeDeck[i].GetNewCardData();
                 playerData.activeWeaponObject.transform.parent = equipPosition.transform;
                 playerData.activeWeaponObject.transform.position = equipPosition.transform.position;
-                playerData.activeWeaponObject.animator.SetFloat("Blend", playerData.GetStat(PLAYERSTATS.PlayerDirection).value);
-                playerData.activeWeaponObject.animState = CardObject.ANIMSTATES.Idle;
+                playerData.activeWeaponObject.animator.SetFloat("Blend", playerData.GetStat(EPlayerStats.PlayerDirection).value);
+                playerData.activeWeaponObject.animState = CardObject.EAnimStates.Idle;
                 //playerData.activeDeck[i].UseCard();
             }
 
-            playerData.activeDeck[i].GetStat(CARDSTATS.Mana).value = 0;
-            playerData.activeDeck[i].GetStat(CARDSTATS.Cooldown).value = playerData.activeDeck[i].GetStat(CARDSTATS.Cooldown).maxValue;
-            playerData.activeDeck[i].GetStat(CARDSTATS.Duration).value = playerData.activeDeck[i].GetStat(CARDSTATS.Duration).maxValue;
+            playerData.activeDeck[i].GetStat(ECardStats.Mana).value = 0;
+            playerData.activeDeck[i].GetStat(ECardStats.Cooldown).value = playerData.activeDeck[i].GetStat(ECardStats.Cooldown).maxValue;
+            playerData.activeDeck[i].GetStat(ECardStats.Duration).value = playerData.activeDeck[i].GetStat(ECardStats.Duration).maxValue;
         }
-        else if (playerData.activeDeck[i].GetStat(CARDSTATS.Mana).value < playerData.activeDeck[i].GetStat(CARDSTATS.Mana).maxValue)
+        else if (playerData.activeDeck[i].GetStat(ECardStats.Mana).value < playerData.activeDeck[i].GetStat(ECardStats.Mana).maxValue)
         {
             Debug.Log("Mana is not enough");
         }
-        else if (playerData.activeDeck[i].GetStat(CARDSTATS.Cooldown).value > 0)
+        else if (playerData.activeDeck[i].GetStat(ECardStats.Cooldown).value > 0)
         {
             Debug.Log(playerData.activeDeck[i] + " is on cooldown");
         }
-        */
     }
 
     public void PlayerAttack()
@@ -176,31 +176,31 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         {
             playerData.canPlayerInput = true;
         }
-        else if (playerData.activeWeaponObject.weaponData.GetProp(CARDPROPS.SubType).value 
-            == GameManager.Instance.card.weaponTypeDict[Card.WEAPONTYPES.SWORD])
+        else if (playerData.activeWeaponObject.weaponData.GetProp(ECardProps.SubType).value 
+            == ObjectManager.Instance.weaponTypes[ObjectManager.EWeaponTypes.Sword])
         {
-            playerData.animState = PlayerData.AnimState.SWORD_ATK;
-            playerData.activeWeaponObject.animState = CardObject.ANIMSTATES.Attack;
+            playerData.animState = PlayerData.EAnimState.SwordAttack;
+            playerData.activeWeaponObject.animState = CardObject.EAnimStates.Attack;
         }
-        else if (playerData.activeWeaponObject.weaponData.GetProp(CARDPROPS.SubType).value 
-            == GameManager.Instance.card.weaponTypeDict[Card.WEAPONTYPES.POLEARM])
-        {
-
-        }
-        else if (playerData.activeWeaponObject.weaponData.GetProp(CARDPROPS.SubType).value 
-            == GameManager.Instance.card.weaponTypeDict[Card.WEAPONTYPES.HEAVY])
+        else if (playerData.activeWeaponObject.weaponData.GetProp(ECardProps.SubType).value 
+            == ObjectManager.Instance.weaponTypes[ObjectManager.EWeaponTypes.Polearm])
         {
 
         }
-        else if (playerData.activeWeaponObject.weaponData.GetProp(CARDPROPS.SubType).value 
-            == GameManager.Instance.card.weaponTypeDict[Card.WEAPONTYPES.BOW])
+        else if (playerData.activeWeaponObject.weaponData.GetProp(ECardProps.SubType).value 
+            == ObjectManager.Instance.weaponTypes[ObjectManager.EWeaponTypes.Heavy])
+        {
+
+        }
+        else if (playerData.activeWeaponObject.weaponData.GetProp(ECardProps.SubType).value 
+            == ObjectManager.Instance.weaponTypes[ObjectManager.EWeaponTypes.Bow])
         {
             playerData.activeWeaponObject.transform.rotation = Quaternion.Euler(0, 0, 135f); //Rotates activeWeapon to properly look at target
-            playerData.animState = PlayerData.AnimState.BOW_ATK;
-            playerData.activeWeaponObject.animState = CardObject.ANIMSTATES.Attack;
+            playerData.animState = PlayerData.EAnimState.BowAttack;
+            playerData.activeWeaponObject.animState = CardObject.EAnimStates.Attack;
         }
-        else if (playerData.activeWeaponObject.weaponData.GetProp(CARDPROPS.SubType).value 
-            == GameManager.Instance.card.weaponTypeDict[Card.WEAPONTYPES.STAFF])
+        else if (playerData.activeWeaponObject.weaponData.GetProp(ECardProps.SubType).value 
+            == ObjectManager.Instance.weaponTypes[ObjectManager.EWeaponTypes.Staff])
         {
             playerData.activeWeaponObject.transform.rotation = Quaternion.Euler(0, 0, 135f); //Rotates activeWeapon to properly look at target
         }
@@ -211,31 +211,31 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
     {
         switch (playerData.animState)
         {
-            case PlayerData.AnimState.IDLE:
+            case PlayerData.EAnimState.Idle:
                 IdleState(isUsingPhysics);
                 break;
-            case PlayerData.AnimState.MOVE:
+            case PlayerData.EAnimState.Move:
                 MoveState(isUsingPhysics);
                 break;
-            case PlayerData.AnimState.CAST_SPELL:
+            case PlayerData.EAnimState.CastSpell:
                 CastSpell(isUsingPhysics);
                 break;
-            case PlayerData.AnimState.SUMMON_CREATURE:
+            case PlayerData.EAnimState.SummonCreature:
                 SummonCreature(isUsingPhysics);
                 break;
-            case PlayerData.AnimState.SWORD_ATK:
+            case PlayerData.EAnimState.SwordAttack:
                 SwordAttack(isUsingPhysics);
                 break;
-            case PlayerData.AnimState.POLEARM_ATK:
+            case PlayerData.EAnimState.HeavyAttack:
                 PolearmAttack(isUsingPhysics);
                 break;
-            case PlayerData.AnimState.HEAVY_ATK:
+            case PlayerData.EAnimState.PolearmAttack:
                 HeavyAttack(isUsingPhysics);
                 break;
-            case PlayerData.AnimState.BOW_ATK:
+            case PlayerData.EAnimState.BowAttack:
                 BowAttack(isUsingPhysics);
                 break;
-            case PlayerData.AnimState.STAFF_ATK:
+            case PlayerData.EAnimState.StaffAttack:
                 StaffAttack(isUsingPhysics);
                 break;
         }
@@ -243,7 +243,7 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
 
     public void AnimEventResetState() //Called as an event in animation
     {
-        playerData.animState = PlayerData.AnimState.IDLE;
+        playerData.animState = PlayerData.EAnimState.Idle;
         equipPosition.rotation = Quaternion.identity; //For Bow-type & Staff-type Weapons
         playerData.canPlayerInput = true;
     }
@@ -264,19 +264,19 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
     {
         if (isUsingPhysics) //Called in FixedUpdate()
         {
-            rb.velocity = playerData.GetStat(PLAYERSTATS.MovementSpeed).value * Time.fixedDeltaTime * playerMoveInput;
+            rb.velocity = playerData.GetStat(EPlayerStats.MovementSpeed).value * Time.fixedDeltaTime * playerMoveInput;
         }
         else //Called in Update()
         {
             //If moving in y-axis only, playerDirection will save the last x-axis so it cannot become 0
             if (playerMoveInput.x != 0)
             {
-                playerData.GetStat(PLAYERSTATS.PlayerDirection).value = playerMoveInput.x;
-                animator.SetFloat("Blend", playerData.GetStat(PLAYERSTATS.PlayerDirection).value);
+                playerData.GetStat(EPlayerStats.PlayerDirection).value = playerMoveInput.x;
+                animator.SetFloat("Blend", playerData.GetStat(EPlayerStats.PlayerDirection).value);
 
                 if (playerData.activeWeaponObject)
                 {
-                    playerData.activeWeaponObject.animator.SetFloat("Blend", playerData.GetStat(PLAYERSTATS.PlayerDirection).value);
+                    playerData.activeWeaponObject.animator.SetFloat("Blend", playerData.GetStat(EPlayerStats.PlayerDirection).value);
                 }
             }
 
@@ -320,7 +320,7 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         }
     }
 
-    private void PolearmAttack(bool isUsingPhysics)
+    private void HeavyAttack(bool isUsingPhysics)
     {
         if (isUsingPhysics) //Called in FixedUpdate()
         {
@@ -332,7 +332,7 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         }
     }
 
-    private void HeavyAttack(bool isUsingPhysics)
+    private void PolearmAttack(bool isUsingPhysics)
     {
         if (isUsingPhysics) //Called in FixedUpdate()
         {

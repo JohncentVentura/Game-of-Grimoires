@@ -29,9 +29,9 @@ public class CardButton : MonoBehaviour
         manaBGImage = manaSlider.GetComponent<RectTransform>().Find("ManaBGImage").GetComponent<Image>();
         manaImage = manaSlider.GetComponent<RectTransform>().Find("ManaImage").GetComponent<Image>();
 
-        foreach (KeyValuePair<Card.MANATYPES, string> manaType in GameManager.Instance.card.manaTypesDict)
+        foreach (KeyValuePair<ObjectManager.EManaTypes, string> manaType in ObjectManager.Instance.manaTypes)
         {
-            if (card.GetProp(CARDPROPS.ManaType).value == manaType.Value) manaImage.sprite = GameManager.Instance.manaTypeSprites[(int)manaType.Key];
+            if (card.GetProp(ECardProps.ManaType).value == manaType.Value) manaImage.sprite = ObjectManager.Instance.manaTypeSprites[(int)manaType.Key];
         }
 
         innerBorderImage = rectTransform.Find("InnerBorderImage").GetComponent<Image>();
@@ -48,10 +48,10 @@ public class CardButton : MonoBehaviour
 
     public void UpdateCardData(CardData card)
     {
-        manaSlider.maxValue = card.GetStat(CARDSTATS.Mana).maxValue;
-        manaSlider.value = card.GetStat(CARDSTATS.Mana).value;
-        cooldownSlider.maxValue = card.GetStat(CARDSTATS.Cooldown).maxValue;
-        cooldownSlider.value = card.GetStat(CARDSTATS.Cooldown).value;
+        manaSlider.maxValue = card.GetStat(ECardStats.Mana).maxValue;
+        manaSlider.value = card.GetStat(ECardStats.Mana).value;
+        cooldownSlider.maxValue = card.GetStat(ECardStats.Cooldown).maxValue;
+        cooldownSlider.value = card.GetStat(ECardStats.Cooldown).value;
     }
     
 }

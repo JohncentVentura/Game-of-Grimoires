@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 204510cf42d2b7e4e9ad19390379423e, type: 3}
+  m_Name: SimpleSwordPlayerData
+  m_EditorClassIdentifier: 
+  cardSprite: {fileID: 21300000, guid: 2a3806505d345b54eab1ea5e5ce98aa9, type: 3}
+  cardProps:
+  - name: MainType
+    value: Weapon
+  - name: CardName
+    value: Beginners Bow
+  - name: ManaType
+    value: Fire
+  - name: SubType
+    value: Sword
+  cardStats:
+  - name: Mana
+    maxValue: 3
+    value: 0
+    regeneration: 0
+  - name: Cooldown
+    maxValue: 3
+    value: 0
+    regeneration: 0
+  - name: Duration
+    maxValue: 13
+    value: 0
+    regeneration: 0
+  weaponStats:
+  - name: HitPoints
+    maxValue: 0
+    value: 0
+    regeneration: 0
+  - name: AttackDamage
+    maxValue: 3
+    value: 5
+    regeneration: 0
+  - name: AttackRange
+    maxValue: 1
+    value: 1
+    regeneration: 0
+  - name: AttackSpeed
+    maxValue: 1
+    value: 1
+    regeneration: 0
+  - name: MovementSpeed
+    maxValue: 0
+    value: 0
+    regeneration: 0

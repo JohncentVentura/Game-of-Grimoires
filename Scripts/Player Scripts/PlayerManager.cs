@@ -111,25 +111,25 @@ public class PlayerManager : MonoBehaviour, IDataPersistence
 
     public void CardCooldownTimerTick(int i)
     {
-        if (playerData.activeDeck[i].GetStat(CARDSTATS.Cooldown).value > 0)
+        if (playerData.activeDeck[i].GetStat(ECardStats.Cooldown).value > 0)
         {
-            playerData.activeDeck[i].GetStat(CARDSTATS.Cooldown).value -= Time.deltaTime;
+            playerData.activeDeck[i].GetStat(ECardStats.Cooldown).value -= Time.deltaTime;
         }
-        else if (playerData.activeDeck[i].GetStat(CARDSTATS.Cooldown).value <= 0)
+        else if (playerData.activeDeck[i].GetStat(ECardStats.Cooldown).value <= 0)
         {
-            playerData.activeDeck[i].GetStat(CARDSTATS.Cooldown).value = 0;
+            playerData.activeDeck[i].GetStat(ECardStats.Cooldown).value = 0;
         }
     }
 
     public void CardDurationTimerTick(int i)
     {
-        if (playerData.activeDeck[i].GetStat(CARDSTATS.Duration).value > 0)
+        if (playerData.activeDeck[i].GetStat(ECardStats.Duration).value > 0)
         {
-            playerData.activeDeck[i].GetStat(CARDSTATS.Duration).value -= Time.deltaTime;
+            playerData.activeDeck[i].GetStat(ECardStats.Duration).value -= Time.deltaTime;
         }
-        else if (playerData.activeDeck[i].GetStat(CARDSTATS.Duration).value <= 0)
+        else if (playerData.activeDeck[i].GetStat(ECardStats.Duration).value <= 0)
         {
-            playerData.activeDeck[i].GetStat(CARDSTATS.Duration).value = 0;
+            playerData.activeDeck[i].GetStat(ECardStats.Duration).value = 0;
         }
     }
 }

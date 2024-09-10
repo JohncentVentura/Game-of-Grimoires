@@ -4,30 +4,17 @@ using UnityEngine;
 [System.Serializable]
 public class SerializablePlayerData
 {
-    [Header("Stats & State")]
+    [Header("Stats")]
     public bool canPlayerInput;
     public Vector2 worldPosition;
     public List<Stat> playerStats;
-    public enum AnimState
-    {
-        IDLE, MOVE, SUMMON_CREATURE, CAST_SPELL,
-        SWORD_ATK, POLEARM_ATK, HEAVY_ATK, BOW_ATK, STAFF_ATK,
-        STUNNED,
-    }
-    public AnimState animState;
 
-    [Header("Serializable Card Data")]
+    [Header("Cards & Decks")]
     public SerializableCreatureData birdData;
     public SerializableSpellData blazeBallData;
     public SerializableWeaponData beginnersBowData;
     public SerializableWeaponData simpleSwordData;
-
-    [Header("Deck")]
-    public readonly int deckSize = 4;
     public List<CardData> activeDeck;
-    public List<CreatureObject> activeCreatureObjects;
-    public List<SpellObject> activeSpellObjects;
-    public WeaponObject activeWeaponObject;
 
     public SerializablePlayerData()
     {
@@ -41,61 +28,62 @@ public class SerializablePlayerData
 [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/PlayerData")]
 public class PlayerData : ScriptableObject
 {
-    [Header("Stats & State")]
+    [Header("Runtime")]
+    public EAnimState animState;
+    public enum EAnimState
+    {
+        Idle, Move, SummonCreature, CastSpell,
+        SwordAttack, HeavyAttack, PolearmAttack, BowAttack, StaffAttack,
+        Stunned,
+    }
+    public readonly int deckSize = 4;
+    public List<Creature> activeCreatureObjects;
+    public List<Spell> activeSpellObjects;
+    public Weapon activeWeaponObject;
+
+    [Header("Stats")]
     public bool canPlayerInput;
     public Vector2 worldPosition;
     public List<Stat> playerStats;
-    public enum AnimState
-    {
-        IDLE, MOVE, SUMMON_CREATURE, CAST_SPELL,
-        SWORD_ATK, POLEARM_ATK, HEAVY_ATK, BOW_ATK, STAFF_ATK,
-        STUNNED,
-    }
-    public AnimState animState;
 
-    [Header("Card Data")]
+    [Header("Cards & Decks")]
     public CreatureData birdData;
     public SpellData blazeBallData;
     public WeaponData beginnersBowData;
     public WeaponData simpleSwordData;
-
-    [Header("Deck")]
-    public readonly int deckSize = 4;
     public List<CardData> activeDeck;
-    public List<CreatureObject> activeCreatureObjects;
-    public List<SpellObject> activeSpellObjects;
-    public WeaponObject activeWeaponObject;
 
     public void InitPlayerData()
     {
-        //Stats & State
+        //Runtime
+        animState = EAnimState.Idle;
+        activeCreatureObjects = new List<Creature>();
+        activeSpellObjects = new List<Spell>();
+        activeWeaponObject = null;
+
+        //Stats
         canPlayerInput = true;
         worldPosition = new Vector2(0, 0);
         playerStats = new List<Stat>();
-        AddStat(PLAYERSTATS.PlayerDirection, 1f);
-        AddStat(PLAYERSTATS.HitPoints, 20f);
-        AddStat(PLAYERSTATS.AttackDamage, 10f);
-        AddStat(PLAYERSTATS.AttackRange, 10f);
-        AddStat(PLAYERSTATS.AttackSpeed, 1f);
-        AddStat(PLAYERSTATS.MovementSpeed, 60f);
-        animState = AnimState.IDLE;
-
-        //Card Data
+        AddStat(EPlayerStats.PlayerDirection, 1f);
+        AddStat(EPlayerStats.HitPoints, 20f);
+        AddStat(EPlayerStats.AttackDamage, 10f);
+        AddStat(EPlayerStats.AttackRange, 10f);
+        AddStat(EPlayerStats.AttackSpeed, 1f);
+        AddStat(EPlayerStats.MovementSpeed, 60f);
+        
+        //Cards
         birdData.InitCardData();
         blazeBallData.InitCardData();
         beginnersBowData.InitCardData();
         simpleSwordData.InitCardData();
-
-        //Deck
+        //Decks
         activeDeck = new List<CardData>();
         activeDeck.Insert(0, birdData);
         activeDeck.Insert(1, blazeBallData);
         activeDeck.Insert(2, beginnersBowData);
         activeDeck.Insert(3, simpleSwordData);
-        activeCreatureObjects = new List<CreatureObject>();
-        activeSpellObjects = new List<SpellObject>();
-        activeWeaponObject = null;
-
+        
         //From SO, changes in SO & GO is the same
         //birdData.InitCardData();
 
@@ -104,13 +92,13 @@ public class PlayerData : ScriptableObject
         //newPlayerBird.InitCardData();
     }
 
-    public void AddStat(PLAYERSTATS stat, float maxValue)
+    public void AddStat(EPlayerStats stat, float maxValue)
     {
         playerStats.Insert((int)stat, new Stat(maxValue));
         GetStat(stat).name = stat.ToString();
     }
 
-    public Stat GetStat(PLAYERSTATS stat)
+    public Stat GetStat(EPlayerStats stat)
     {
         return playerStats[(int)stat];
     }

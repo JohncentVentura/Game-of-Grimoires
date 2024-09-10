@@ -8,11 +8,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour, IDataPersistence
 {
     public static GameManager Instance { get; private set; }
-    public Card card;
-
-    public SettingsData settingsData;
-    public Sprite[] manaTypeSprites;
-
     private void Awake()
     {
         if (Instance != null)
@@ -22,9 +17,9 @@ public class GameManager : MonoBehaviour, IDataPersistence
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        card = new Card();
     }
+
+    public SettingsData settingsData;
 
     public void Start()    
     {
@@ -86,80 +81,28 @@ public class GameManager : MonoBehaviour, IDataPersistence
         if (Input.GetButtonDown(input)) callback?.Invoke();
     }
 
-    /*
     private void Update()
     {
         if (Input.GetKey(KeyCode.Z))
         {
-            PlayerManager.Instance.playerData.handCards[0].GetStat(CARDSTATS.Mana).value += 0.12f;
+            PlayerManager.Instance.playerData.activeDeck[0].GetStat(ECardStats.Mana).value += 0.12f;
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
-            PlayerManager.Instance.playerData.handCards[1].GetStat(CARDSTATS.Mana).value += 0.12f;
+            PlayerManager.Instance.playerData.activeDeck[1].GetStat(ECardStats.Mana).value += 0.12f;
         }
         else if (Input.GetKeyDown(KeyCode.C))
         {
-            PlayerManager.Instance.playerData.handCards[2].GetStat(CARDSTATS.Mana).value += 0.12f;
+            PlayerManager.Instance.playerData.activeDeck[2].GetStat(ECardStats.Mana).value += 0.12f;
         }
         else if (Input.GetKeyDown(KeyCode.V))
         {
-            PlayerManager.Instance.playerData.handCards[3].GetStat(CARDSTATS.Mana).value += 0.12f;
+            PlayerManager.Instance.playerData.activeDeck[3].GetStat(ECardStats.Mana).value += 0.12f;
         }
         else if (Input.GetKeyDown(KeyCode.B))
         {
             //playerData = (PlayerData)ScriptableObject.CreateInstance("PlayerData");
         }
     }
-    */  
     #endregion
-}
-
-public class Card
-{   
-    public enum CARDCATEGORIES
-    {
-        CREATURE, SPELL, WEAPON,
-    }
-    public readonly Dictionary<CARDCATEGORIES, string> cardCategoryDict = new()
-    {
-        { CARDCATEGORIES.CREATURE, "Creature" }, { CARDCATEGORIES.SPELL, "Spell" }, { CARDCATEGORIES.WEAPON, "Weapon" }
-    };
-
-    public enum MANATYPES
-    {
-        AETHER, EARTH, FIRE, NETHER, WATER
-    }
-    public readonly Dictionary<MANATYPES, string> manaTypesDict = new()
-    {
-        {MANATYPES.AETHER, "Aether" }, {MANATYPES.EARTH, "Earth" }, {MANATYPES.FIRE, "Fire" },
-        {MANATYPES.NETHER, "Nether" }, {MANATYPES.WATER, "Water"}
-    };
-
-    public enum CREATURETYPES
-    {
-
-    }
-    public readonly Dictionary<CREATURETYPES, string> creatureTypeDict = new()
-    {
-
-    };
-
-    public enum SPELLTYPES
-    {
-
-    }
-    public readonly Dictionary<SPELLTYPES, string> spellTypeDict = new()
-    {
-
-    };
-
-    public enum WEAPONTYPES
-    {
-        SWORD, HEAVY, POLEARM, BOW, STAFF
-    }
-    public readonly Dictionary<WEAPONTYPES, string> weaponTypeDict = new()
-    {
-        { WEAPONTYPES.SWORD, "Sword" }, { WEAPONTYPES.HEAVY, "Heavy" }, { WEAPONTYPES.POLEARM, "Polearm" },
-        { WEAPONTYPES.BOW, "Bow" }, { WEAPONTYPES.STAFF, "Staff" }
-    };
 }

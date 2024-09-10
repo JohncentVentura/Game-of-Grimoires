@@ -10,32 +10,32 @@ public class CardObject : MonoBehaviour
     [HideInInspector] public Animator animator;
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public SpriteRenderer spriteRenderer;
-    public enum ANIMSTATES
+    public enum EAnimStates
     {
         Idle, Attack
     }
-    public ANIMSTATES animState;
+    public EAnimStates animState;
 
-    void Start()
+    void OnEnable()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        animState = ANIMSTATES.Idle;
+        animState = EAnimStates.Idle;
     }
 }
 
-public class CreatureObject : CardObject
+public class Creature : CardObject
 {
     public CreatureData creatureData;
 }
 
-public class SpellObject : CardObject
+public class Spell : CardObject
 {
     public SpellData spellData;
 }
 
-public class WeaponObject : CardObject
+public class Weapon : CardObject
 {
     public WeaponData weaponData;
 }
