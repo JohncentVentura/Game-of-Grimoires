@@ -122,18 +122,20 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
             if (playerData.activeDeck[i].GetProp(ECardProps.MainType).value == ObjectManager.Instance.mainTypes[ObjectManager.EMainTypes.Creature])
             {       
                 Creature creatureObject = (Creature)Instantiate(playerData.activeDeck[i].GetCardObject());
-                creatureObject.creatureData = (CreatureData)playerData.activeDeck[i].GetNewCardData();
-                creatureObject.transform.parent = transform.parent.Find("Allies");
-                creatureObject.transform.position = centerPosition.position;
+                creatureObject.creatureData = (CreatureData)playerData.activeDeck[i];
+                creatureObject.transform.parent = transform.parent.Find("Ally Creatures");
+                creatureObject.transform.position = transform.position;
+                creatureObject.animator.SetFloat("Blend", playerData.GetStat(EPlayerStats.PlayerDirection).value);
                 playerData.activeCreatureObjects.Add(creatureObject);
                 //playerData.activeDeck[i].UseCard();
             }
             else if (playerData.activeDeck[i].GetProp(ECardProps.MainType).value == ObjectManager.Instance.mainTypes[ObjectManager.EMainTypes.Spell])
             {
                 Spell spellObject = (Spell)Instantiate(playerData.activeDeck[i].GetCardObject());
-                spellObject.spellData = (SpellData)playerData.activeDeck[i].GetNewCardData();
-                spellObject.transform.parent = transform.parent.Find("Spells");
+                spellObject.spellData = (SpellData)playerData.activeDeck[i];
+                spellObject.transform.parent = transform.parent.Find("Ally Spells");
                 spellObject.transform.position = frontHand.transform.position;
+                spellObject.animator.SetFloat("Blend", playerData.GetStat(EPlayerStats.PlayerDirection).value);
                 playerData.activeSpellObjects.Add(spellObject);
                 //playerData.activeDeck[i].UseCard();
             }
@@ -146,11 +148,10 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
                 }
 
                 playerData.activeWeaponObject = (Weapon)Instantiate(playerData.activeDeck[i].GetCardObject());
-                playerData.activeWeaponObject.weaponData = (WeaponData)playerData.activeDeck[i].GetNewCardData();
+                playerData.activeWeaponObject.weaponData = (WeaponData)playerData.activeDeck[i];
                 playerData.activeWeaponObject.transform.parent = equipPosition.transform;
                 playerData.activeWeaponObject.transform.position = equipPosition.transform.position;
                 playerData.activeWeaponObject.animator.SetFloat("Blend", playerData.GetStat(EPlayerStats.PlayerDirection).value);
-                playerData.activeWeaponObject.animState = CardObject.EAnimStates.Idle;
                 //playerData.activeDeck[i].UseCard();
             }
 

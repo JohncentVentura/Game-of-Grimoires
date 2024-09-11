@@ -3,9 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SimpleSword : Weapon
-{
-    void Update() => StateMachine(false);
+{   
+    void OnEnable()
+    {
+        animator = GetComponent<Animator>();
+        animator.SetFloat("Blend", 1);
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animState = EAnimStates.Idle;
+    }
+    
+    void Start() => weaponData = (WeaponData)weaponData.GetNewCardData();
+    
     void FixedUpdate() => StateMachine(true);
+
+    void Update()
+    {
+        StateMachine(false);
+    }
 
     #region StateMachine
     public void StateMachine(bool isUsingPhysics)
@@ -52,5 +67,4 @@ public class SimpleSword : Weapon
         }
     }
     #endregion
-
 }

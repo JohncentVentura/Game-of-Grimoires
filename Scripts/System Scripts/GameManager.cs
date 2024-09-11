@@ -24,13 +24,16 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public void Start()    
     {
         if (DataManager.Instance.useWithoutGameData)
-        {
+        {   
+            EnemyManager.Instance.InitEnemyManager();
+            settingsData.InitSettingsData();
             PlayerManager.Instance.InitPlayerManager();
         }
     }
 
     public void OnClickNewGame(string nextSceneName) //Called in StareMenuScene
-    {
+    {   
+        EnemyManager.Instance.InitEnemyManager();
         settingsData.InitSettingsData();
         PlayerManager.Instance.InitPlayerManager();
 

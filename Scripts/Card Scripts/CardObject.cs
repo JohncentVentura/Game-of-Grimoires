@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 /*
-    Using some OOP (virtual, override) causes bugs & warnings in Unity Animation Events
+    Cannot create methods in parent because it causes bugs in Animation Event, create methods in children instead
 */
 
 public class CardObject : MonoBehaviour
@@ -12,30 +13,35 @@ public class CardObject : MonoBehaviour
     [HideInInspector] public SpriteRenderer spriteRenderer;
     public enum EAnimStates
     {
-        Idle, Attack
+        Idle, Move, Attack
     }
     public EAnimStates animState;
-
-    void OnEnable()
-    {
-        animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animState = EAnimStates.Idle;
-    }
 }
 
 public class Creature : CardObject
 {
     public CreatureData creatureData;
+
+    /*Template for Creature children
+
+    */
 }
 
 public class Spell : CardObject
 {
     public SpellData spellData;
+
+    /*Template for Spell children
+
+    */
 }
 
 public class Weapon : CardObject
 {
     public WeaponData weaponData;
+
+    /*Template for Weapon children
+
+    */
 }
+

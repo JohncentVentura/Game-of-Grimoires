@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eced62e6e24c3624eb629aa990cedc9c, type: 3}
-  m_Name: BirdPlayerData
+  m_Name: BirdEnemyData
   m_EditorClassIdentifier: 
-  cardSprite: {fileID: 1663214017, guid: c233c7fdb9d18a14e99ff20dc1addf35, type: 3}
+  cardSprite: {fileID: 0}
   cardProps:
   - name: MainType
     value: Creature
@@ -29,11 +29,11 @@ MonoBehaviour:
     regeneration: 0
   - name: Cooldown
     maxValue: 3
-    value: 0.17326666
+    value: 3
     regeneration: 0
   - name: Duration
     maxValue: 4
-    value: 1.1732669
+    value: 4
     regeneration: 0
   creatureStats:
   - name: HitPoints

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
-    CardData is the base value, override it by creating a new CardData Asset
+    CardData children contains the base value, override value by creating new CardData Asset
 */
-#region Serializable Cards
+#region Serializable CardData
 [Serializable]
 public class SerializableCardData
 {
@@ -81,9 +81,8 @@ public class CardData : ScriptableObject
     public virtual Stat GetStat(ECreatureStats stat) => null; //Override in CreatureData
     public virtual Stat GetStat(ESpellStats stat) => null; //Override in SpellData
     public virtual Stat GetStat(EWeaponStats stat) => null; //Override in WeaponData
-
-    public virtual CardObject GetCardObject() => null;
-    public virtual CardData GetNewCardData() => null;
+    public virtual CardObject GetCardObject() => null; //Override in childrens of CreatureData, SpellData, & WeaponData
+    public virtual CardData GetNewCardData() => null; //Override in CreatureData, SpellData, & WeaponData
 }
 
 public class CreatureData : CardData
