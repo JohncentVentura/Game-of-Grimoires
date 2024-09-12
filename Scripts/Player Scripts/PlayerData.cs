@@ -1,11 +1,11 @@
 using System.Collections.Generic;
+using System.Dynamic;
 using UnityEngine;
 
 [System.Serializable]
 public class SerializablePlayerData
 {
     [Header("Stats")]
-    public bool canPlayerInput;
     public Vector2 worldPosition;
     public List<Stat> playerStats;
 
@@ -22,6 +22,7 @@ public class SerializablePlayerData
         blazeBallData = new SerializableSpellData();
         beginnersBowData = new SerializableWeaponData();
         simpleSwordData = new SerializableWeaponData();
+        activeDeck = new List<CardData>();
     }
 }
 
@@ -29,20 +30,20 @@ public class SerializablePlayerData
 public class PlayerData : ScriptableObject
 {
     [Header("Runtime")]
-    public EAnimState animState;
+    public bool canPlayerInput;
     public enum EAnimState
     {
         Idle, Move, SummonCreature, CastSpell,
         SwordAttack, HeavyAttack, PolearmAttack, BowAttack, StaffAttack,
         Stunned,
     }
+    public EAnimState animState;
     public readonly int deckSize = 4;
     public List<Creature> activeCreatureObjects;
     public List<Spell> activeSpellObjects;
     public Weapon activeWeaponObject;
 
     [Header("Stats")]
-    public bool canPlayerInput;
     public Vector2 worldPosition;
     public List<Stat> playerStats;
 
@@ -56,13 +57,13 @@ public class PlayerData : ScriptableObject
     public void InitPlayerData()
     {
         //Runtime
+        canPlayerInput = true;
         animState = EAnimState.Idle;
         activeCreatureObjects = new List<Creature>();
         activeSpellObjects = new List<Spell>();
         activeWeaponObject = null;
 
         //Stats
-        canPlayerInput = true;
         worldPosition = new Vector2(0, 0);
         playerStats = new List<Stat>();
         AddStat(EPlayerStats.PlayerDirection, 1f);
@@ -71,7 +72,7 @@ public class PlayerData : ScriptableObject
         AddStat(EPlayerStats.AttackRange, 10f);
         AddStat(EPlayerStats.AttackSpeed, 1f);
         AddStat(EPlayerStats.MovementSpeed, 60f);
-        
+
         //Cards
         birdData.InitCardData();
         blazeBallData.InitCardData();
@@ -79,11 +80,7 @@ public class PlayerData : ScriptableObject
         simpleSwordData.InitCardData();
         //Decks
         activeDeck = new List<CardData>();
-        activeDeck.Insert(0, birdData);
-        activeDeck.Insert(1, blazeBallData);
-        activeDeck.Insert(2, beginnersBowData);
-        activeDeck.Insert(3, simpleSwordData);
-        
+
         //From SO, changes in SO & GO is the same
         //birdData.InitCardData();
 

@@ -22,29 +22,35 @@ public class PlayerManager : MonoBehaviour, IDataPersistence
     public void InitPlayerManager()
     {
         playerData.InitPlayerData();
+        playerData.activeDeck.Insert(0, playerData.birdData);
+        playerData.activeDeck.Insert(1, playerData.blazeBallData);
+        playerData.activeDeck.Insert(2, playerData.beginnersBowData);
+        playerData.activeDeck.Insert(3, playerData.simpleSwordData);
     }
 
     #region IDataPersistence
     public void LoadData(GameData gameData)
     {
-        playerData.canPlayerInput = gameData.playerData.canPlayerInput;
         playerData.worldPosition = gameData.playerData.worldPosition;
         playerData.playerStats = gameData.playerData.playerStats;
-        
+
         LoadCreatureData(playerData.birdData, gameData.playerData.birdData);
         LoadSpellData(playerData.blazeBallData, gameData.playerData.blazeBallData);
         LoadWeaponData(playerData.beginnersBowData, gameData.playerData.beginnersBowData);
         LoadWeaponData(playerData.simpleSwordData, gameData.playerData.simpleSwordData);
 
-        playerData.activeDeck = gameData.playerData.activeDeck;
+        for (int i = 0; i < playerData.deckSize; i++)
+        {   
+            //serializableCardData InstanceID was updated to match the new cardData InstanceID, that's why we're finding & assigning it here
+            playerData.activeDeck[i] = FindCardDataByID((int)gameData.playerData.activeDeck[i].GetStat(ECardStats.InstanceID).value);
+        }
     }
 
     public void SaveData(GameData gameData)
     {
-        gameData.playerData.canPlayerInput = playerData.canPlayerInput;
         gameData.playerData.worldPosition = playerData.worldPosition;
         gameData.playerData.playerStats = playerData.playerStats;
-        
+
         SaveCreatureData(playerData.birdData, gameData.playerData.birdData);
         SaveSpellData(playerData.blazeBallData, gameData.playerData.blazeBallData);
         SaveWeaponData(playerData.beginnersBowData, gameData.playerData.beginnersBowData);
@@ -53,43 +59,62 @@ public class PlayerManager : MonoBehaviour, IDataPersistence
         gameData.playerData.activeDeck = playerData.activeDeck;
     }
 
+    public CardData FindCardDataByID(int id)
+    {
+        CardData cardData = null;
+        if (id == playerData.birdData.GetStat(ECardStats.InstanceID).value) cardData = playerData.birdData;
+        else if (id == playerData.blazeBallData.GetStat(ECardStats.InstanceID).value) cardData = playerData.blazeBallData;
+        else if (id == playerData.beginnersBowData.GetStat(ECardStats.InstanceID).value) cardData = playerData.beginnersBowData;
+        else if (id == playerData.simpleSwordData.GetStat(ECardStats.InstanceID).value) cardData = playerData.simpleSwordData;
+        return cardData;
+    }
+
     public void LoadCreatureData(CreatureData creatureData, SerializableCreatureData serializableCreatureData)
     {
+        //Change serializableCreatureData InstanceID to match the new creatureData InstanceID
+        serializableCreatureData.cardStats[0].value = creatureData.GetInstanceID();
+
         creatureData.cardProps = serializableCreatureData.cardProps;
         creatureData.cardStats = serializableCreatureData.cardStats;
         creatureData.creatureStats = serializableCreatureData.creatureStats;
     }
 
-    public void SaveCreatureData(CreatureData creatureData, SerializableCreatureData serializableCreatureData)
-    {   
-        serializableCreatureData.cardProps = creatureData.cardProps;
-        serializableCreatureData.cardStats = creatureData.cardStats;
-        serializableCreatureData.creatureStats = creatureData.creatureStats;
-    }
-
     public void LoadSpellData(SpellData spellData, SerializableSpellData serializableSpellData)
     {
+        //Change serializableSpellData InstanceID to match the new spellData InstanceID
+        serializableSpellData.cardStats[0].value = spellData.GetInstanceID();
+
         spellData.cardProps = serializableSpellData.cardProps;
         spellData.cardStats = serializableSpellData.cardStats;
         spellData.spellStats = serializableSpellData.spellStats;
     }
 
-    public void SaveSpellData(SpellData spellData, SerializableSpellData serializablespellData)
-    {   
-        serializablespellData.cardProps = spellData.cardProps;
-        serializablespellData.cardStats = spellData.cardStats;
-        serializablespellData.spellStats = spellData.spellStats;
-    }
-
     public void LoadWeaponData(WeaponData weaponData, SerializableWeaponData serializableWeaponData)
     {
+        //Change serializableWeaponData InstanceID to match the new weaponData InstanceID
+        serializableWeaponData.cardStats[0].value = weaponData.GetInstanceID();
+
         weaponData.cardProps = serializableWeaponData.cardProps;
         weaponData.cardStats = serializableWeaponData.cardStats;
         weaponData.weaponStats = serializableWeaponData.weaponStats;
     }
 
+    public void SaveCreatureData(CreatureData creatureData, SerializableCreatureData serializableCreatureData)
+    {
+        serializableCreatureData.cardProps = creatureData.cardProps;
+        serializableCreatureData.cardStats = creatureData.cardStats;
+        serializableCreatureData.creatureStats = creatureData.creatureStats;
+    }
+
+    public void SaveSpellData(SpellData spellData, SerializableSpellData serializablespellData)
+    {
+        serializablespellData.cardProps = spellData.cardProps;
+        serializablespellData.cardStats = spellData.cardStats;
+        serializablespellData.spellStats = spellData.spellStats;
+    }
+
     public void SaveWeaponData(WeaponData weaponData, SerializableWeaponData serializableWeaponData)
-    {   
+    {
         serializableWeaponData.cardProps = weaponData.cardProps;
         serializableWeaponData.cardStats = weaponData.cardStats;
         serializableWeaponData.weaponStats = weaponData.weaponStats;

@@ -94,6 +94,7 @@ public class CreatureData : CardData
         cardProps = new List<Prop>();
         AddProp(ECardProps.MainType, ObjectManager.Instance.mainTypes[ObjectManager.EMainTypes.Creature]);
         cardStats = new List<Stat>();
+        AddStat(ECardStats.InstanceID, GetInstanceID());
         creatureStats = new List<Stat>();
     }
 
@@ -121,6 +122,7 @@ public class SpellData : CardData
         cardProps = new List<Prop>();
         AddProp(ECardProps.MainType, ObjectManager.Instance.mainTypes[ObjectManager.EMainTypes.Spell]);
         cardStats = new List<Stat>();
+        AddStat(ECardStats.InstanceID, GetInstanceID());
         spellStats = new List<Stat>();
     }
 
@@ -148,6 +150,7 @@ public class WeaponData : CardData
         cardProps = new List<Prop>();
         AddProp(ECardProps.MainType, ObjectManager.Instance.mainTypes[ObjectManager.EMainTypes.Weapon]);
         cardStats = new List<Stat>();
+        AddStat(ECardStats.InstanceID, GetInstanceID());
         weaponStats = new List<Stat>();
     }
 

@@ -13,7 +13,7 @@ public enum EPlayerStats
 [Serializable]
 public enum ECardStats
 {
-    Mana, Cooldown, Duration
+    InstanceID, Mana, Cooldown, Duration
 }
 
 [Serializable]

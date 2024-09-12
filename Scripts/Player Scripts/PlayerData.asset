@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   canPlayerInput: 0
-  worldPosition: {x: 0, y: 0}
+  animState: 0
+  activeCreatureObjects: []
+  activeSpellObjects: []
+  activeWeaponObject: {fileID: 0}
+  worldPosition: {x: -0.5185586, y: -0.2785584}
   playerStats:
   - name: PlayerDirection
     maxValue: 1
-    value: 1
+    value: -0.70710677
     regeneration: 0
   - name: HitPoints
     maxValue: 20
@@ -39,12 +43,12 @@ MonoBehaviour:
     maxValue: 60
     value: 60
     regeneration: 0
-  animState: 0
   birdData: {fileID: 11400000, guid: 28d869b74de8f374697d96278f873ef0, type: 2}
   blazeBallData: {fileID: 11400000, guid: 1c3016ade5d142445aabeedf6db85736, type: 2}
   beginnersBowData: {fileID: 11400000, guid: e60334f7a3a5a014c8ddb96d45e0af4f, type: 2}
   simpleSwordData: {fileID: 11400000, guid: f1c3f6953ea0b2642a8d9a0d7bc8d85f, type: 2}
-  activeDeck: []
-  activeCreatureObjects: []
-  activeSpellObjects: []
-  activeWeaponObject: {fileID: 0}
+  activeDeck:
+  - {fileID: 11400000, guid: 28d869b74de8f374697d96278f873ef0, type: 2}
+  - {fileID: 11400000, guid: 1c3016ade5d142445aabeedf6db85736, type: 2}
+  - {fileID: 11400000, guid: e60334f7a3a5a014c8ddb96d45e0af4f, type: 2}
+  - {fileID: 11400000, guid: f1c3f6953ea0b2642a8d9a0d7bc8d85f, type: 2}

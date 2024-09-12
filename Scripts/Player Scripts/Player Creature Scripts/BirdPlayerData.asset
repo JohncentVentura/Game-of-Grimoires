@@ -23,17 +23,21 @@ MonoBehaviour:
   - name: SubType
     value: Winged Beast
   cardStats:
+  - name: InstanceID
+    maxValue: 27406
+    value: 27406
+    regeneration: 0
   - name: Mana
     maxValue: 3
     value: 3
     regeneration: 0
   - name: Cooldown
     maxValue: 3
-    value: 0.17326666
+    value: 0
     regeneration: 0
   - name: Duration
     maxValue: 4
-    value: 1.1732669
+    value: 0
     regeneration: 0
   creatureStats:
   - name: HitPoints
