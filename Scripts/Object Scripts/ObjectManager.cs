@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
-   public static ObjectManager Instance { get; private set; }
+    public static ObjectManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -17,9 +17,22 @@ public class ObjectManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    #region Tags
+    public enum ETags
+    {
+        Player, PlayerHitbox, PlayerHurtbox, Ally, AllyHitbox, AllyHurtbox, Enemy, EnemyHitbox, EnemyHurtbox,
+    }
+    public readonly Dictionary<ETags, string> tags = new()
+    {
+        {ETags.Player, "Player"}, {ETags.PlayerHitbox, "PlayerHitbox"}, {ETags.PlayerHurtbox, "PlayerHurtbox"},
+        {ETags.Ally, "Ally"}, {ETags.AllyHitbox, "AllyHitbox"}, {ETags.AllyHurtbox, "AllyHurtbox"},
+        {ETags.Enemy, "Enemy"}, {ETags.EnemyHitbox, "EnemyHitbox"}, {ETags.EnemyHurtbox, "EnemyHurtbox"},
+    };
+    #endregion
+
     #region Cards
     public Sprite[] manaTypeSprites;
-    
+
     public enum EMainTypes
     {
         Creature, Spell, Weapon,
@@ -67,7 +80,7 @@ public class ObjectManager : MonoBehaviour
         { EWeaponTypes.Bow, "Bow" }, { EWeaponTypes.Staff, "Staff" }
     };
     #endregion
-    
+
     #region Creatures
     [Header("Creatures")]
     public Creature bird;

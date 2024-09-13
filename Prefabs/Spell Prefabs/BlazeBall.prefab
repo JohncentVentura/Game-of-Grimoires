@@ -49,6 +49,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   rb: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  hitbox: {fileID: 0}
+  hurtbox: {fileID: 0}
   animState: 0
   spellData: {fileID: 0}
 --- !u!212 &6783917111086897319

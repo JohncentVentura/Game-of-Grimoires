@@ -31,7 +31,7 @@ public class DataManager : MonoBehaviour
     [HideInInspector] public GameData gameData; //Contains scripts that are Serializable
     private readonly string gameDataFile = "game.dat"; //The file containing the GameData
     private readonly string backupExtension = ".bak"; //The file extension for the backup version of game.dat
-    public bool useWithoutGameData = false; //Play Scenes without loading or saving data if true
+    public bool useGameData = true; //Play Scenes without loading or saving gameData if false
     [SerializeField] private bool useEncryption = false;
     private readonly string encryptionCodeWord = "johncentventura";
 

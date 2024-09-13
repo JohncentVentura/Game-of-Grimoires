@@ -49,7 +49,10 @@ MonoBehaviour:
   animator: {fileID: 0}
   rb: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  state: 0
+  hitbox: {fileID: 0}
+  hurtbox: {fileID: 0}
+  animState: 0
+  weaponData: {fileID: 0}
 --- !u!212 &1581922642438024667
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
 
     public void Start()    
     {
-        if (DataManager.Instance.useWithoutGameData)
+        if (!DataManager.Instance.useGameData)
         {   
             EnemyManager.Instance.InitEnemyManager();
             settingsData.InitSettingsData();
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
         PlayerManager.Instance.playerData.activeSpellObjects = null;
         PlayerManager.Instance.playerData.activeWeaponObject = null;
 
-        if (!DataManager.Instance.useWithoutGameData)
+        if (DataManager.Instance.useGameData)
         {
             DataManager.Instance.SaveGame();
         }

@@ -53,7 +53,7 @@ public class SerializableWeaponData : SerializableCardData
 }
 #endregion
 
-public class CardData : ScriptableObject
+public abstract class CardData : ScriptableObject
 {
     public Sprite cardSprite;
     public List<Prop> cardProps;
@@ -85,7 +85,7 @@ public class CardData : ScriptableObject
     public virtual CardData GetNewCardData() => null; //Override in CreatureData, SpellData, & WeaponData
 }
 
-public class CreatureData : CardData
+public abstract class CreatureData : CardData
 {
     public List<Stat> creatureStats;
 
@@ -113,7 +113,7 @@ public class CreatureData : CardData
     }
 }
 
-public class SpellData : CardData
+public abstract class SpellData : CardData
 {
     public List<Stat> spellStats;
 
@@ -141,7 +141,7 @@ public class SpellData : CardData
     }
 }
 
-public class WeaponData : CardData
+public abstract class WeaponData : CardData
 {
     public List<Stat> weaponStats;
 

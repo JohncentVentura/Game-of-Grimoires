@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         animator = GetComponent<Animator>();
         animator.SetFloat("Blend", playerData.GetStat(EPlayerStats.PlayerDirection).value);
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0;
+        rb.freezeRotation = true;
         centerPosition = transform.GetChild(0);
         frontHand = centerPosition.transform.GetChild(0);
         backHand = centerPosition.transform.GetChild(1);

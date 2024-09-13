@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BlazeBall : Spell
-{   
-    void OnEnable()
-    {
-        animator = GetComponent<Animator>();
-        animator.SetFloat("Blend", 1);
-        rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animState = EAnimStates.Idle;
-    }
-    
-    void Start() => spellData = (SpellData)spellData.GetNewCardData();
+{
+    #region Overridden Methods
+    protected override void OnEnable() => base.OnEnable();
+    protected override void Start() => base.Start();
+    protected override void AnimEventResetState() => base.AnimEventResetState();
+    #endregion
 }

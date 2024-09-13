@@ -3,26 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bird : Creature
-{
-    void OnEnable()
-    {
-        animator = GetComponent<Animator>();
-        animator.SetFloat("Blend", 1);
-        rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animState = EAnimStates.Idle;
-    }
-
-    void Start() => creatureData = (CreatureData)creatureData.GetNewCardData();
-
-    void FixedUpdate() => StateMachine(true);
-
-    void Update()
-    {
-        StateMachine(false);
-    }
+{   
+    #region Overridden Methods
+    protected override void OnEnable() => base.OnEnable();
+    protected override void Start() => base.Start();
+    protected override void AnimEventResetState() => base.AnimEventResetState();
+    #endregion
 
     #region State Machine
+    void FixedUpdate() => StateMachine(true);
+    void Update() => StateMachine(false);
+
     public void StateMachine(bool isUsingPhysics)
     {
         switch (animState)
@@ -37,11 +28,6 @@ public class Bird : Creature
                 AttackState(isUsingPhysics);
                 break;
         }
-    }
-
-    public void AnimEventResetState() //Called as an event in animation
-    {
-        animState = EAnimStates.Idle;
     }
 
     public void IdleState(bool isUsingPhysics)
@@ -83,7 +69,26 @@ public class Bird : Creature
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.CompareTag(ObjectManager.Instance.tags[ObjectManager.ETags.Player]))
+        {
+            Debug.Log("Player alert");
+        }
+    }
 
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag(ObjectManager.Instance.tags[ObjectManager.ETags.Player]))
+        {
+            Debug.Log("Player seen");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag(ObjectManager.Instance.tags[ObjectManager.ETags.Player]))
+        {
+            Debug.Log("Player left");
+        }
     }
 
 }
