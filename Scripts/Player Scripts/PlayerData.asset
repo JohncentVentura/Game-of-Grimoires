@@ -17,11 +17,11 @@ MonoBehaviour:
   activeCreatureObjects: []
   activeSpellObjects: []
   activeWeaponObject: {fileID: 0}
-  worldPosition: {x: -0.5185586, y: -0.2785584}
+  worldPosition: {x: -0.30497056, y: -0.01697056}
   playerStats:
   - name: PlayerDirection
     maxValue: 1
-    value: -0.70710677
+    value: -1
     regeneration: 0
   - name: HitPoints
     maxValue: 20

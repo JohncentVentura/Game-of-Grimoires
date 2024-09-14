@@ -210,36 +210,36 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
     }
     #endregion
     
-    private void StateMachine(bool isUsingPhysics)
+    private void StateMachine(bool usePhysics)
     {
         switch (playerData.animState)
         {
             case PlayerData.EAnimState.Idle:
-                IdleState(isUsingPhysics);
+                IdleState(usePhysics);
                 break;
             case PlayerData.EAnimState.Move:
-                MoveState(isUsingPhysics);
+                MoveState(usePhysics);
                 break;
             case PlayerData.EAnimState.CastSpell:
-                CastSpell(isUsingPhysics);
+                CastSpell(usePhysics);
                 break;
             case PlayerData.EAnimState.SummonCreature:
-                SummonCreature(isUsingPhysics);
+                SummonCreature(usePhysics);
                 break;
             case PlayerData.EAnimState.SwordAttack:
-                SwordAttack(isUsingPhysics);
+                SwordAttack(usePhysics);
                 break;
             case PlayerData.EAnimState.HeavyAttack:
-                PolearmAttack(isUsingPhysics);
+                PolearmAttack(usePhysics);
                 break;
             case PlayerData.EAnimState.PolearmAttack:
-                HeavyAttack(isUsingPhysics);
+                HeavyAttack(usePhysics);
                 break;
             case PlayerData.EAnimState.BowAttack:
-                BowAttack(isUsingPhysics);
+                BowAttack(usePhysics);
                 break;
             case PlayerData.EAnimState.StaffAttack:
-                StaffAttack(isUsingPhysics);
+                StaffAttack(usePhysics);
                 break;
         }
     }
@@ -251,9 +251,9 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         playerData.canPlayerInput = true;
     }
 
-    private void IdleState(bool isUsingPhysics)
+    private void IdleState(bool usePhysics)
     {
-        if (isUsingPhysics) //Called in FixedUpdate()
+        if (usePhysics) //Called in FixedUpdate()
         {
             rb.velocity = Vector2.zero * Time.fixedDeltaTime;
         }
@@ -263,9 +263,9 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         }
     }
 
-    private void MoveState(bool isUsingPhysics)
+    private void MoveState(bool usePhysics)
     {
-        if (isUsingPhysics) //Called in FixedUpdate()
+        if (usePhysics) //Called in FixedUpdate()
         {
             rb.velocity = playerData.GetStat(EPlayerStats.MovementSpeed).value * Time.fixedDeltaTime * playerMoveInput;
         }
@@ -287,9 +287,9 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         }
     }
 
-    private void SummonCreature(bool isUsingPhysics)
+    private void SummonCreature(bool usePhysics)
     {
-        if (isUsingPhysics) //Called in FixedUpdate()
+        if (usePhysics) //Called in FixedUpdate()
         {
             rb.velocity = Vector2.zero * Time.fixedDeltaTime;
         }
@@ -299,9 +299,9 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         }
     }
 
-    private void CastSpell(bool isUsingPhysics)
+    private void CastSpell(bool usePhysics)
     {
-        if (isUsingPhysics) //Called in FixedUpdate()
+        if (usePhysics) //Called in FixedUpdate()
         {
             rb.velocity = Vector2.zero * Time.fixedDeltaTime;
         }
@@ -311,9 +311,9 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         }
     }
 
-    private void SwordAttack(bool isUsingPhysics)
+    private void SwordAttack(bool usePhysics)
     {
-        if (isUsingPhysics) //Called in FixedUpdate()
+        if (usePhysics) //Called in FixedUpdate()
         {
             rb.velocity = Vector2.zero * Time.fixedDeltaTime;
         }
@@ -323,9 +323,9 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         }
     }
 
-    private void HeavyAttack(bool isUsingPhysics)
+    private void HeavyAttack(bool usePhysics)
     {
-        if (isUsingPhysics) //Called in FixedUpdate()
+        if (usePhysics) //Called in FixedUpdate()
         {
             rb.velocity = Vector2.zero * Time.fixedDeltaTime;
         }
@@ -335,9 +335,9 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         }
     }
 
-    private void PolearmAttack(bool isUsingPhysics)
+    private void PolearmAttack(bool usePhysics)
     {
-        if (isUsingPhysics) //Called in FixedUpdate()
+        if (usePhysics) //Called in FixedUpdate()
         {
             rb.velocity = Vector2.zero * Time.fixedDeltaTime;
         }
@@ -347,9 +347,9 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         }
     }
 
-    private void BowAttack(bool isUsingPhysics)
+    private void BowAttack(bool usePhysics)
     {
-        if (isUsingPhysics) //Called in FixedUpdate()
+        if (usePhysics) //Called in FixedUpdate()
         {
             rb.velocity = Vector2.zero * Time.fixedDeltaTime;
         }
@@ -359,9 +359,9 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
         }
     }
 
-    private void StaffAttack(bool isUsingPhysics)
+    private void StaffAttack(bool usePhysics)
     {
-        if (isUsingPhysics) //Called in FixedUpdate()
+        if (usePhysics) //Called in FixedUpdate()
         {
             rb.velocity = Vector2.zero * Time.fixedDeltaTime;
         }

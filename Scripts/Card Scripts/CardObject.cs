@@ -43,6 +43,10 @@ public abstract class Creature : CardObject
         //TODO: creatureObj.tag = cardData.tag
     }
 
+    protected virtual void FixedUpdate() => StateMachine(true);
+    protected virtual void Update() => StateMachine(false);
+    protected virtual void StateMachine(bool usePhysics){}
+
     protected virtual void AnimEventResetState() //Called as an event in animation
     {
         animState = EAnimStates.Idle;
@@ -66,6 +70,10 @@ public abstract class Spell : CardObject
     {
         spellData = (SpellData)spellData.GetNewCardData();
     }
+
+    protected virtual void FixedUpdate() => StateMachine(true);
+    protected virtual void Update() => StateMachine(false);
+    protected virtual void StateMachine(bool usePhysics){}
 
     protected virtual void AnimEventResetState() //Called as an event in animation
     {
@@ -91,6 +99,10 @@ public abstract class Weapon : CardObject
         weaponData = (WeaponData)weaponData.GetNewCardData();
     }
 
+    protected virtual void FixedUpdate() => StateMachine(true);
+    protected virtual void Update() => StateMachine(false);
+    protected virtual void StateMachine(bool usePhysics){}
+    
     protected virtual void AnimEventResetState() //Called as an event in animation
     {
         animState = EAnimStates.Idle;

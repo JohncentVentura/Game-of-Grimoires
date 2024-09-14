@@ -7,32 +7,31 @@ public class Bird : Creature
     #region Overridden Methods
     protected override void OnEnable() => base.OnEnable();
     protected override void Start() => base.Start();
+    protected override void FixedUpdate() => StateMachine(true);
+    protected override void Update() => StateMachine(false);
     protected override void AnimEventResetState() => base.AnimEventResetState();
     #endregion
 
     #region State Machine
-    void FixedUpdate() => StateMachine(true);
-    void Update() => StateMachine(false);
-
-    public void StateMachine(bool isUsingPhysics)
+    protected override void StateMachine(bool usePhysics)
     {
         switch (animState)
         {
             case EAnimStates.Idle:
-                IdleState(isUsingPhysics);
+                IdleState(usePhysics);
                 break;
             case EAnimStates.Move:
-                MoveState(isUsingPhysics);
+                MoveState(usePhysics);
                 break;
             case EAnimStates.Attack:
-                AttackState(isUsingPhysics);
+                AttackState(usePhysics);
                 break;
         }
     }
 
-    public void IdleState(bool isUsingPhysics)
+    public void IdleState(bool usePhysics)
     {
-        if (isUsingPhysics)
+        if (usePhysics)
         {
 
         }
@@ -42,9 +41,9 @@ public class Bird : Creature
         }
     }
 
-    public void MoveState(bool isUsingPhysics)
+    public void MoveState(bool usePhysics)
     {
-        if (isUsingPhysics)
+        if (usePhysics)
         {
 
         }
@@ -54,9 +53,9 @@ public class Bird : Creature
         }
     }
 
-    public void AttackState(bool isUsingPhysics)
+    public void AttackState(bool usePhysics)
     {
-        if (isUsingPhysics)
+        if (usePhysics)
         {
 
         }

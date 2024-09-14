@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour, IDataPersistence
     public void OnClickLoadGame(string nextSceneName) //Called in StareMenuScene
     {
         DataManager.Instance.LoadGame();
+        DataManager.Instance.SaveGame(); //Saves new InstanceID of ScriptableObjects
+        DataManager.Instance.LoadGame(); //Loads new InstanceID of ScriptableObjects
         SceneManager.LoadScene(nextSceneName);
 
         PlayerManager.Instance.playerData.canPlayerInput = true;

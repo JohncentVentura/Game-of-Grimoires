@@ -7,29 +7,28 @@ public class SimpleSword : Weapon
     #region Overridden Methods
     protected override void OnEnable() => base.OnEnable();
     protected override void Start() => base.Start();
+    protected override void FixedUpdate() => StateMachine(true);
+    protected override void Update() => StateMachine(false);
     protected override void AnimEventResetState() => base.AnimEventResetState();
     #endregion
-
-    void FixedUpdate() => StateMachine(true);
-    void Update() => StateMachine(false);
     
     #region State Machine
-    public void StateMachine(bool isUsingPhysics)
+    protected override void StateMachine(bool usePhysics)
     {
         switch (animState)
         {
             case EAnimStates.Idle:
-                IdleState(isUsingPhysics);
+                IdleState(usePhysics);
                 break;
             case EAnimStates.Attack:
-                AttackState(isUsingPhysics);
+                AttackState(usePhysics);
                 break;
         }
     }
 
-    public void IdleState(bool isUsingPhysics)
+    public void IdleState(bool usePhysics)
     {
-        if (isUsingPhysics)
+        if (usePhysics)
         {
 
         }
@@ -39,9 +38,9 @@ public class SimpleSword : Weapon
         }
     }
 
-    public void AttackState(bool isUsingPhysics)
+    public void AttackState(bool usePhysics)
     {
-        if (isUsingPhysics)
+        if (usePhysics)
         {
 
         }
