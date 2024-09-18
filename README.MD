@@ -4,6 +4,7 @@
 
 # DOCUMENTATION
 UNITY EDITOR SETTINGS
+
 Project Settings > Input Manager
 * Horizontal & Vertical = Movement
 * Fire1 = Use Card 1
@@ -12,8 +13,10 @@ Project Settings > Input Manager
 * Fire4 = Use Card 4
 * Fire5 = Normal Attack
 * Fire6 = Utility Move
+
 Project Settings > Physics 2D
 * Gravity > Y = 0
+
 Tags & Layers
 * PlayerHitbox
 * PlayerHurtbox
