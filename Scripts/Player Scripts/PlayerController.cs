@@ -3,6 +3,7 @@ using System.Collections.Generic;
 //using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class PlayerController : MonoBehaviour //Inputs & Cards
 {
@@ -21,6 +22,8 @@ public class PlayerController : MonoBehaviour //Inputs & Cards
 
     //[Header("UI")]
     //public CinemachineVirtualCamera cinemachineVirtualCamera;
+
+    public CinemachinePixelPerfect cinemachinePixelPerfect;
 
     private void Start()
     {
